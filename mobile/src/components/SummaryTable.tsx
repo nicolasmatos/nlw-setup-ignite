@@ -1,4 +1,5 @@
 import { View, Text, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { generateRangeDatesFromYearStart } from '../utils/generate-range-between-dates'
 
@@ -10,6 +11,8 @@ const minimumSummaryDatesSize = 18 * 5 // 18 weeks
 const amountOfDaysToFill = minimumSummaryDatesSize - summaryDates.length
 
 export function SummaryTable() {
+  const { navigate } = useNavigation()
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -33,6 +36,7 @@ export function SummaryTable() {
           summaryDates.map(date => (
             <HabitDay
               key={date.toISOString()}
+              onPress={() => navigate('habit', { date: date.toISOString() })}
             />
           ))
         }
